@@ -1,44 +1,37 @@
-import Link from "next/link";
-import Image from "next/image"; // Import Image from next/image
-import { simplifiedProduct } from "../interface";
 import { client } from "../lib/sanity";
-import { ArrowRight } from "lucide-react";
+import { simplifiedProduct } from "../interface";
+import Link from "next/link";
+import Image from "next/image";
 
-async function getData() {
-  const query = `*[_type == "product"][0...4] | order(_createdAt desc) {
-        _id,
-          price,
-        name,
-          "slug": slug.current,
-          "categoryName": category->name,
-          "imageUrl": images[0].asset->url
-      }`;
+async function getData(category: string) {
+  const query = `*[_type == "product" && category->name == "${category}"] {
+    _id,
+      "imageUrl": images[0].asset->url,
+      price,
+      name,
+      "slug": slug.current,
+      "categoryName": category->name
+  }`;
 
   const data = await client.fetch(query);
 
   return data;
 }
 
-export default async function Newest() {
-  const data: simplifiedProduct[] = await getData();
+export default async function CategoryPage({
+  params,
+}: {
+  params: { category: string };
+}) {
+  const data: simplifiedProduct[] = await getData(params.category);
 
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-bold tracking-tight">Newest In!</h2>
-          <Link href="/all">
-            {" "}
-            {/* Use "href" instead of "className" for Link */}
-            <div className="text-primary flex items-center ml-4">
-              {" "}
-              {/* Add an "a" tag inside Link */}
-              See All{" "}
-              <span className="flex ">
-                <ArrowRight />{" "}
-              </span>
-            </div>
-          </Link>
+          <h2 className="text-2xl font-bold tracking-tight">
+            {params.category}
+          </h2>
         </div>
 
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
