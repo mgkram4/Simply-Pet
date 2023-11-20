@@ -27,18 +27,6 @@ export default async function Newest() {
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-bold tracking-tight">Newest In!</h2>
-          <Link href="/all">
-            {" "}
-            {/* Use "href" instead of "className" for Link */}
-            <div className="text-primary flex items-center ml-4">
-              {" "}
-              {/* Add an "a" tag inside Link */}
-              See All{" "}
-              <span className="flex ">
-                <ArrowRight />{" "}
-              </span>
-            </div>
-          </Link>
         </div>
 
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">

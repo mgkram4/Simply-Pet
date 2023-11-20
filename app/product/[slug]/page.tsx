@@ -8,13 +8,14 @@ import { Star, Truck } from "lucide-react";
 async function getData(slug: string) {
   const query = `*[_type == 'product' && slug.current == "${slug}"][0]{
     _id,
-      images,
-      price,
-      name,
-      description,
-      "slug": slug.current,
-      "categoryName": category->name,
-  }`;
+    images,
+    price,
+    name,
+    description,
+    "slug": slug.current,
+    "categoryName": category->name,
+    price_id
+}`;
 
   const data = await client.fetch(query);
 
@@ -75,6 +76,7 @@ export default async function ProductPage({
                 name={data.name}
                 price={data.price}
                 key={data._id}
+                price_id={data.price_id}
               ></AddToBag>
               <Button variant={"secondary"}> Checkout Now!</Button>
             </div>
