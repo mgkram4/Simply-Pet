@@ -22,7 +22,6 @@ async function getData(slug: string) {
 
   return data;
 }
-export const dynamic = "force-dynamic";
 
 export default async function ProductPage({
   params,
@@ -88,8 +87,7 @@ export default async function ProductPage({
                 price={data.price}
                 key={data._id}
                 price_id={data.price_id}
-              />{" "}
-              Checkout Now!
+              />
             </div>
             <p className="m-12 text-base text-gray-500 tracking-white">
               {data.description}
